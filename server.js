@@ -7,13 +7,24 @@ import bodyParser from "body-parser";
 dotenv.config({path:'./.env'});
 const app=express();
 app.use(bodyParser.json());
+
 app.use("/freementorproject/v1/user",userRouter);
+
 app.use("/freementorproject/v1/session",sessionRouter);
-app.listen(2020,()=>{
-    const dbUrl=process.env.DATABASE;
+
+app.use('/',(req,res)=>{
+    res.status(404).send({
+        statu:404,
+        message:"this route does not exist"
+    })
+})
+const dbUrl=process.env.DATABASE;
+   const port=process.env.PORT;
     mongoose.connect(dbUrl,{useNewUrlParser:true,useCreateIndex:true,useUnifiedTopology:true,useFindAndModify:false}).then(()=>console.log("database connected well"));
 console.log(dbUrl);
-    console.log("server running at 2020");  
+app.listen(port,()=>{
+    
+    console.log(`server running at ${port}`);  
 }
 )
 export default app;
