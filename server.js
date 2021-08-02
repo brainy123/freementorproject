@@ -7,9 +7,9 @@ import bodyParser from "body-parser";
 dotenv.config({path:'./.env'});
 const app=express();
 app.use(bodyParser.json());
-
+//user model
 app.use("/freementorproject/v1/user",userRouter);
-
+//session model
 app.use("/freementorproject/v1/session",sessionRouter);
 
 app.use('/',(req,res)=>{

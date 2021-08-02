@@ -1,5 +1,20 @@
 import userInfo from "../models/userModel.js";
 class userController{
+    static signinUser=async(request,response)=>{
+        const {email,password}=request.body;
+        const user= await userInfo.findOne({email:email,password:password});
+        if(!user){
+            return response.status(404).json({
+                status:404,
+                message:"invalid credentials"
+            })
+        }
+        return response.status(200).json({
+            status:201,
+            message:"Login successifully",
+            data:user
+        })
+    }
     static signupUser=async(request,response)=>{
 const user=await userInfo.create(request.body);
 if(!user)
