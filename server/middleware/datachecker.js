@@ -1,12 +1,12 @@
 import userInfo from "../models/userModel.js";
 class datachecker{
-static checkEmail=async(request,response,next)=>{
+static checkEmail= async(request,response,next)=>{
 const email= await userInfo.findOne({email: request.body.email});
 if(!email)
 {
     return next();
 }
-return response.status.json({
+return response.status(404).json({
     status:404,
     message:"email already exist"
 })
