@@ -95,6 +95,50 @@ static deleteOne=async(request,response)=>{
         }
     )
 }
+static changeStatusToApproved =async(request,response)=>{
+    const change= await sessionInfo.findById(request.params.id);
+    let status;
+    if(change.status=="pending"){
+        status="approved";
+    }
+    else(status="pending");
+const user= await sessionInfo.findByIdAndUpdate(request.params.id,{status:status});
+if(!user)
+{
+return response.status(404).json({
+status:404,
+message:"unable to change to approved status "
+})
+  }
+return response.status(200).json({
+status:201,
+message:"approved status updated well",
+data:user
+})
 
+}  
+
+static changeStatusToDecline= async(request,response)=>{
+    const change= await sessionInfo.findById(request.params.id);
+    let status;
+    if(change.status=="pending")
+    {
+        status="decline";
+    }
+    else(status="pending");
+    const updatechanges= await sessionInfo.findByIdAndUpdate(request.params.id,{status:status});
+    if(!updatechanges)
+    {
+        return response.status(404).json({
+            status:404,
+            message:"unable to change to decline status"
+        })
+    }
+    return response.status(200).json({
+        status:201,
+        message:"decline status updated well",
+        data:updatechanges
+    })
+}
 }
 export default sessionController;

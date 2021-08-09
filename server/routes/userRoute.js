@@ -14,4 +14,6 @@ userRouter.get("/:id/",validator.checkId(),validator.validateInput,userControlle
 userRouter.patch("/:id",validator.checkId(),validator.validateInput,userController.updateById);
 userRouter.delete("/:id",validator.checkId(),validator.validateInput,userController.deleteUserById);
 userRouter.post("/signin",userController.signinUser);
+userRouter.patch("/:id/role",userController.changeRoleOfUser);
+userRouter.get("/all/mentor",userController.viewAllMentors);
 export default userRouter;

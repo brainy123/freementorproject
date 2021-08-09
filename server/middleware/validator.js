@@ -19,8 +19,8 @@ static newRules(){
         check("firstname","plz your firstname is not string").isAlpha(),
         check("lastname","plz your lastname is not string").isAlpha(),
         check("password","plz your password is not strong").isStrongPassword(),
-        check("gender","plz your gender must be ").isIn(['male','female']),
-        check("age","plz your age must be integer").isInt()
+        check("gender","plz your gender must be female or male only").isIn(['male','female']),
+        check("age","plz your age must be number").isInt()
 
     ];
 }
