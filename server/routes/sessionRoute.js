@@ -6,4 +6,6 @@ sessionRouter.get("/view",sessionController.viewAll);
 sessionRouter.get("/:id",sessionController.viewOne);
 sessionRouter.patch("/:id",sessionController.updateOne);
 sessionRouter.delete("/:id",sessionController.deleteOne);
+sessionRouter.patch("/:id/statusapp",sessionController.changeStatusToApproved);
+sessionRouter.patch("/:id/statusdec",sessionController.changeStatusToDecline);
 export default sessionRouter;

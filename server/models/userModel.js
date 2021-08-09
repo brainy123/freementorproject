@@ -23,8 +23,21 @@ const userSchema=new mongoose.Schema({
         type:String,
     enum:["male","female"]
 },
-    phonenumber:String,
-    age:Number
+    phonenumber:
+    {
+type:String},
+
+    age:
+    {
+        type:Number
+    },
+    role:
+    {
+        type:String,
+        enum:["user","admin","mentor"],
+        default:"user"
+
+    },
 });
 const userInfo=mongoose.model('user',userSchema);
 export default userInfo;

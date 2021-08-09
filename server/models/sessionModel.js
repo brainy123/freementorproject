@@ -9,21 +9,16 @@ const sessionSchema=new mongoose.Schema({
         type:String,
         required:[true,"description is required"]
     },
-    role:
-    {
-        type:String,
-        enum:["user","admin","mentor"],
-        default:"user"
-    },
-    mentor:{
-        type:String,
-        required:[true,"mentor is required plz"]
-    },
+    user:String,
     status:
     {
         type:String,
 enum:["pending","approved","decline"],
 default:"pending"
+    },
+    mentor:{
+        type:String,
+        required:[true,"mentor is required plz"]
     },
     timetostart:String,
     timetoend:String
