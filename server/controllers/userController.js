@@ -1,16 +1,18 @@
 import userInfo from "../models/userModel.js";
 import tokenAuth from "../helpers/tokenAuth.js"
+import bcrypt from "bcrypt";
 class userController{
     static signinUser=async(request,response)=>{
         const {email,password}=request.body;
-        const user= await userInfo.findOne({email:email,password:password});
+        const user= await userInfo.findOne({email:email});
         if(!user){
             return response.status(404).json({
                 status:404,
-                message:"invalid credentials"
+                message:"user doesn't exists"
             })
         }
-        
+        if(bcrypt.compareSync(password,user.password))
+        {
     const token=tokenAuth.tokenGeneretor({
         id:user._id,
         email:user.email,
@@ -24,14 +26,22 @@ class userController{
         data:user
     })
 }
+return response.status(404).json({
+    status:404,
+    message:"incorrect password "
+})}
     static signupUser=async(request,response)=>{
+        const saltRound=10;
+        const hashPassword=bcrypt.hashSync(request.body.password,saltRound);
+        //console.log(hashPassword);
+        request.body.password=hashPassword;
 const user=await userInfo.create(request.body);
 if(!user)
 {
     return response.status(404).json(
     {
         status:404,
-        message:"unable to register user "
+        message:"user not registered well "
     })
 }
 return response.status(200).json(
@@ -48,7 +58,7 @@ return response.status(200).json(
             return response.status(404).json(
             {
                 status:404,
-                message:" user(s) not found "
+                message:" no user(s)found"
             })
         }
         return response.status(200).json(
@@ -66,17 +76,34 @@ return response.status(200).json(
                     return response.status(404).json(
                     {
                         status:404,
-                        message:"unable to find one user "
+                        message:"user doesn't exist "
                     })
                 }
                 return response.status(200).json(
                     {
                         status:201,
-                        message:"one user found ",
+                        message:" user found ",
                         data:user
                     })
                     }
 
+                    static getOneMentor=async(request,response)=>{
+                        const onementor=await userInfo.findById(request.params.id)
+                        let role;
+                        if(onementor.role!=="mentor")
+                        {
+                            return response.status(404).json({
+                                status:404,
+                                message:"mentor doesn't exist"
+                            })
+                        }
+                        
+                        return response.status(200).json({
+                            status:201,
+                            message:"mentor's info found",
+                            data:onementor
+                        })
+                    }
                     static updateById=async(request,response)=>{
                         const user=await userInfo.findByIdAndUpdate(request.params.id,request.body);
                         if(!user)

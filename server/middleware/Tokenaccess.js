@@ -6,7 +6,7 @@ try{
     if(requiredrole!==role){
 return response.status(404).json({
     status:404,
-    message:"you have no access"
+    message:"you have no right to access"
 })
     }
     return next();

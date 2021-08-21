@@ -17,7 +17,7 @@ const userSchema=new mongoose.Schema({
     password:
     {
         type:String,
-        default: "123456"
+        default: "ABcd1234@"
     },
     gender:{    
         type:String,
@@ -38,6 +38,10 @@ type:String},
         default:"user"
 
     },
+    profile:{
+        type:String
+    },
+    
 });
 const userInfo=mongoose.model('user',userSchema);
 export default userInfo;
