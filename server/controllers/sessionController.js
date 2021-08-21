@@ -1,13 +1,15 @@
 import sessionInfo from "../models/sessionModel.js";
 class sessionController{
-static saveSession=async(request,response)=>{
- const save=await sessionInfo.create(request.body) ;
+static createSession=async(request,response)=>{
+    console.log(request.user);
+    request.body.user=request.user.id;
+ const save=await sessionInfo.create(request.body);
  if(!save)
  {
      return response.status(404).json(
          {
          status:404,
-         message:"not able to save session"    
+         message:"not able to create session"    
          }
          )
  }
@@ -110,12 +112,12 @@ status:404,
 message:"unable to change to approved status "
 })
   }
+const updated= await sessionInfo.findById(request.params.id);
 return response.status(200).json({
 status:201,
 message:"approved status updated well",
-data:user
+data:updated
 })
-
 }  
 
 static changeStatusToDecline= async(request,response)=>{
@@ -139,6 +141,23 @@ static changeStatusToDecline= async(request,response)=>{
         message:"decline status updated well",
         data:updatechanges
     })
+}
+static viewAllMySessions =async(request,response)=>
+{
+    
+    const viewmine=await sessionInfo.find({email:request.body.user})
+if(!viewmine)
+{
+    return response.status(404).json({
+        status:404,
+        message:"no sessions u have"
+    })
+}
+return response.status(200).json({
+    status:201,
+    message:"all session you requested",
+    data:viewmine
+})
 }
 }
 export default sessionController;
