@@ -21,7 +21,7 @@ class userController{
     })
     return response.status(200).json({
         status:200,
-        meaage:"login successifully",
+        message:"login successifully",
         token:token,
         data:user
     })
