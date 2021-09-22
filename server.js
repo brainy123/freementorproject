@@ -4,8 +4,10 @@ import dotenv from "dotenv";
 import userRouter from "./server/routes/userRoute.js";
 import sessionRouter from "./server/routes/sessionRoute.js";
 import bodyParser from "body-parser";
+import cors from "cors";
 dotenv.config({path:'./.env'});
 const app=express();
+app.use(cors());
 app.use(bodyParser.json());
 //user model
 app.use("/freementorproject/v1/user",userRouter);
