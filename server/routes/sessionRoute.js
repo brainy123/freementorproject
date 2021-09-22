@@ -5,7 +5,7 @@ import Verifytoken from "../middleware/Tokenverify.js";
 const sessionRouter=express.Router();
 sessionRouter.post("/create",Verifytoken,verifyAccess("user"), sessionController.createSession);
 sessionRouter.get("/view",Verifytoken,verifyAccess("mentor"),sessionController.viewAll);
-sessionRouter.get("/:email/viewmysessions",Verifytoken,verifyAccess("user"),sessionController.viewAllMySessions);
+sessionRouter.get("/:id/viewmysessions",Verifytoken,verifyAccess("user"),sessionController.viewAllMySessions);
 sessionRouter.get("/:id",Verifytoken,verifyAccess("user"), sessionController.viewOne);
 sessionRouter.patch("/:id", Verifytoken,verifyAccess("admin"), sessionController.updateOne);
 sessionRouter.delete("/:id",Verifytoken,verifyAccess("admin"), sessionController.deleteOne);

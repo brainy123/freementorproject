@@ -13,7 +13,7 @@ datachecker.checkEmail,
 datachecker.checkAge,
 validator.validateInput,
 userController.signupUser);
- userRouter.get("/all",Verifytoken,verifyAccess("admin"), userController.getAllUsers);
+ userRouter.get("/all",Verifytoken,verifyAccess("mentor"), userController.getAllUsers);
  userRouter.get("/:id/",Verifytoken,verifyAccess("mentor"),validator.checkId(),validator.validateInput,userController.getOneUser);
 userRouter.get("/:id/mentor",Verifytoken,verifyAccess("user"),userController.getOneMentor);
  userRouter.patch("/:id",validator.checkId(),validator.validateInput,userController.updateById);

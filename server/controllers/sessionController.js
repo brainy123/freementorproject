@@ -142,22 +142,20 @@ static changeStatusToDecline= async(request,response)=>{
         data:updatechanges
     })
 }
-static viewAllMySessions =async(request,response)=>
-{
+static viewAllMySessions = async(request,response)=>{
+    const sessions = await sessionInfo.find({user:request.user.id});
+    if(!sessions ){
+        return response.status(400).json({
+            status:400,
+            message:"failed to get all "
+        })
     
-    const viewmine=await sessionInfo.find({email:request.body.user})
-if(!viewmine)
-{
-    return response.status(404).json({
-        status:404,
-        message:"no sessions u have"
+    }
+    return response.status(200).json({
+        status:200,
+        message:"success",
+        data:sessions
     })
-}
-return response.status(200).json({
-    status:201,
-    message:"all session you requested",
-    data:viewmine
-})
 }
 }
 export default sessionController;
